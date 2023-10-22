@@ -4,8 +4,6 @@ from datetime import datetime, timedelta
 from random import randint, choice
 import os
 
-test_status = ["passed", "passed", "passed", "passed", "passed", "failed", "skipped", "broken", "passed", "passed",
-               "passed", "passed", "passed", ]
 Date_format = "%Y-%m-%dT%H:%M:%S.%fZ"
 
 file = open('fake_api.json')
@@ -161,4 +159,6 @@ def form_expected_log_json(num_of_iters):
 
             log_file.write(str(log_json_resp))
 
-form_log_fact_result_json(2)
+form_log_fact_result_json(5)
+form_expected_log_json(10)
+form_step_fact_result_json(5)
