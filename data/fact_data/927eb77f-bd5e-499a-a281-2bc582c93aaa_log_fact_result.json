@@ -1,1 +1,0 @@
-{'name': 'Test case ID 130a8ea8', 'status': 'passed', 'steps': [{'name': 'Call API method POST /api/basket-placing/', 'status': 'passed', 'steps': [{'name': 'Check status code 201', 'status': 'passed'}]}], 'attachments': [{'name': 'log', 'source': '050cb2da-0b92-4213-a551-fc0d8808cef8_attachment.txt', 'type': 'text/plain'}], 'uuid': '69d5f0ea-f04e-4fce-9cd3-3bde5c64448a'}
