@@ -2,3 +2,5 @@
 __pycache__/
 fake_api.json
 log.txt
+data/expected_data/*
+data/fact_data/*
