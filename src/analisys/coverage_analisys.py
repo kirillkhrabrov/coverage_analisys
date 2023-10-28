@@ -11,7 +11,7 @@ class CoverageAnalisys:
     @staticmethod
     def get_top_n_api_methods(data_set: DataSet, top_n: int):
         data_set_to_sort = data_set.result_data_set
-        data_set_to_sort.sort(key=lambda data_frame: data_frame.rank, reverse=True)
+        data_set_to_sort.sort(key=lambda data_frame: data_frame.frequency, reverse=True)
         return data_set_to_sort[:top_n]
 
     def get_tested_unused_api_methods(self, expected_data_set=None, fact_data_set=None):

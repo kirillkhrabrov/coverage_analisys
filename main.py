@@ -17,8 +17,12 @@ fact_data_set = DataSet(path_to_source=PATH_TO_FACT_RESULTS)
 expected_data_set = DataSet(path_to_source=PATH_TO_EXPECTED_RESULTS)
 
 data_parser.set_data_frame(data_set_to_save_data_frames=fact_data_set)
-# data_parser.set_expected_data_frame(data_set_to_save_data_frames=expected_data_set)
-#
+data_parser.set_data_frame(data_set_to_save_data_frames=expected_data_set)
+
+print('end')
+
+
+
 # coverage_visualizer = CoverageVisualizer(
 #     fact_data_set=fact_data_set,
 #     expected_data_set=expected_data_set

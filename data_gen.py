@@ -159,6 +159,6 @@ def form_expected_log_json(num_of_iters):
 
             log_file.write(str(log_json_resp))
 
-form_log_fact_result_json(5)
-form_expected_log_json(10)
-form_step_fact_result_json(5)
+form_log_fact_result_json(50)
+form_expected_log_json(50)
+form_step_fact_result_json(50)
