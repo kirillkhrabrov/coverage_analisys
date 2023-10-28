@@ -13,12 +13,12 @@ from src.utils.logger import Logger
 class DataParser:
     def __init__(self, fact_results_source=None, expected_results_source=None):
         """
-            Class for traversing through files, parsing files, collect info
-            about api methods.
+        Class for traversing through files, parsing files, collect info
+        about api methods.
 
-            params:
-                    fact_results_source (str): path to fact data files
-                    expected_results_source (str): path to expect data files
+        params:
+                fact_results_source (str): path to fact data files
+                expected_results_source (str): path to expect data files
         """
         self.fact_results_source = fact_results_source
         self.expected_results_source = expected_results_source
@@ -27,13 +27,13 @@ class DataParser:
     @staticmethod
     def _get_elk_response():
         """
-            Method for getting info about api methods over ELK API request.
-            KibanaRequest.KIBANA_AUTH_URL - ELK internal search method's endpoint
-            KibanaRequest.REQUEST_HEADERS - ELK Request headesrs, auth included
-            KibanaRequest.AUTH_REQUEST_PAYLOAD -ELK Request payloads with params snippet
+        Method for getting info about api methods over ELK API request.
+        KibanaRequest.KIBANA_AUTH_URL - ELK internal search method's endpoint
+        KibanaRequest.REQUEST_HEADERS - ELK Request headesrs, auth included
+        KibanaRequest.AUTH_REQUEST_PAYLOAD -ELK Request payloads with params snippet
 
-            returns:
-                json with real agents' API methods calls
+        returns:
+            json with real agents' API methods calls
         """
         auth_response = requests.request(
             "POST",
@@ -56,6 +56,16 @@ class DataParser:
         return log_req_result.json()["rawResponse"]["hits"]["hits"]
 
     def __get_files_from_dir(self, path_to_source):
+        """
+        Method for traversing through directory with reports< log files,
+        yielding file to read
+
+        params:
+            path_to_source (str): path to fact / expected data files
+
+        yields:
+            file from fact / expected data directory
+        """
         try:
             if os.listdir(path_to_source):
                 for file in os.listdir(path_to_source):
@@ -66,7 +76,19 @@ class DataParser:
         except Exception as e:
             self.logger.error(f"Cannot get files from dir: {path_to_source} -> {str(e)}")
 
-    def __read_file(self, file_name, path_to_source):
+    def __read_file(self, file_name: str, path_to_source: str):
+        """
+        Method for reading the content of file.
+        If this file is JSON formant, methods replaces single quote
+        with doubles
+
+        params:
+            file_name (str): name of file to be read
+            path_to_source (str): path to fact / expected data files
+
+        yields:
+            file from fact / expected data directory
+        """
         try:
             with open(os.path.join(path_to_source, file_name), "r", encoding='utf-8') as f:
                 content = f.read()
