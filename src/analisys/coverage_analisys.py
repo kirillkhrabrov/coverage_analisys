@@ -1,7 +1,5 @@
-import os
-import matplotlib.pyplot as plt
-import pandas as pd
-from utils.data_coverage_parser.data_parser import DataSet
+from src.data_parser.data_set import DataSet
+
 
 class CoverageAnalisys:
     def __init__(self, fact_data_set: DataSet, expected_data_set: DataSet):
@@ -9,10 +7,19 @@ class CoverageAnalisys:
         self.expected_data_set = expected_data_set.result_data_set
 
     @staticmethod
-    def get_top_n_api_methods(data_set: DataSet, top_n: int):
+    def get_top_n_api_methods(data_set: DataSet, top_n: int, sort_by: str = 'frequency'):
         data_set_to_sort = data_set.result_data_set
-        data_set_to_sort.sort(key=lambda data_frame: data_frame.frequency, reverse=True)
+        data_set_to_sort.sort(
+            key=lambda data_frame: data_frame.frequency if sort_by == 'frequency' else data_frame.criticality,
+            reverse=True
+        )
         return data_set_to_sort[:top_n]
+
+    def get_untested_query_params(self, expected_data_set=None, fact_data_set=None):
+        pass
+
+    def get_untested_statuse_params(self, expected_data_set=None, fact_data_set=None):
+        pass
 
     def get_tested_unused_api_methods(self, expected_data_set=None, fact_data_set=None):
         expected_list, fact_list = self.expected_data_set, self.fact_data_set

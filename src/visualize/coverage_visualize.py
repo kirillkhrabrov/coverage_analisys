@@ -1,9 +1,9 @@
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
-from utils.data_coverage_parser.data_parser import DataSet
+from src.data_parser.data_set import DataSet
 
-class CoverageAnalisys:
+class CoverageVisualize:
     @staticmethod
     def build_info_table(**kwargs):
         fig, table_ax = plt.subplots(figsize=(11, 11))

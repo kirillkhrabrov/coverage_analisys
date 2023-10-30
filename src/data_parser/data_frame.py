@@ -7,8 +7,5 @@ class DataFrame:
         self.broken = 1 if test_status == "broken" else 0
         self.skipped = 1 if test_status == "skipped" else 0
         self.status_codes = status_code
-        self.criticality = None
+        self.criticality = 0
         self.frequency = 1
-        # TODO
-        # add weight for critical API methods
-        # add status code for API

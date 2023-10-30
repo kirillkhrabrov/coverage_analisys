@@ -1,8 +1,9 @@
 import os
 from src.data_parser.data_parser import DataParser
 from src.data_parser.data_set import DataSet
-# from utils.coverage_visualizer.coverage_visualizer import CoverageVisualizer, PData
-
+from src.analisys.coverage_analisys import CoverageAnalisys
+from src.visualize.pdata import PData
+from src.visualize.coverage_visualize import CoverageVisualize
 
 
 PATH_TO_FACT_RESULTS = os.path.abspath('data/fact_data')
@@ -19,19 +20,23 @@ expected_data_set = DataSet(path_to_source=PATH_TO_EXPECTED_RESULTS)
 data_parser.set_data_frame(data_set_to_save_data_frames=fact_data_set)
 data_parser.set_data_frame(data_set_to_save_data_frames=expected_data_set)
 
-print('end')
-
-
-
-# coverage_visualizer = CoverageVisualizer(
-#     fact_data_set=fact_data_set,
-#     expected_data_set=expected_data_set
-# )
+coverage_visualizer = CoverageVisualizer(
+    fact_data_set=fact_data_set,
+    expected_data_set=expected_data_set
+)
 #
 # top_50_expected = CoverageVisualizer.get_top_n_api_methods(expected_data_set, 50)
 # top_50_fact = CoverageVisualizer.get_top_n_api_methods(fact_data_set, 50)
-#
 # top_15_fact = CoverageVisualizer.get_top_n_api_methods(fact_data_set, 15)
+#
+
+# TODO
+# TOP_N_untested_sort_freq
+# TOP_N_untested_sort_crit
+# query_untested_from_top_crit
+# query_untested_from_top_freq
+# statuses_untested_from_top_crit
+# statuses_untested_from_top_freq
 #
 # # Не протестированные используемые API методы
 # untested_used_methods = coverage_visualizer.get_untested_used_api_methods()
@@ -41,8 +46,8 @@ print('end')
 #
 # # Протестированные API не используемые методы
 # tested_unused_from_top_50 = coverage_visualizer.get_tested_unused_api_methods()
-#
-# tested_15_from_top = coverage_visualizer.get_tested_api_methods(top_15_fact)
+
+
 #
 # # top 50 expected API Methods table
 # top_50_expected_df = PData(
