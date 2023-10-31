@@ -4,6 +4,9 @@ from src.utils.logger import Logger
 
 class DataSet:
     def __init__(self, path_to_source):
+        """
+        Class for collecting info about multiple API methods
+        """
         self.result_data_set = []
         self.path_to_source = path_to_source
         self.logger = Logger().logger
@@ -60,6 +63,14 @@ class DataSet:
             ]
 
     def _increase_status(self, data_frame: DataFrame):
+        """
+        Method to increase test run status for DataFrame
+        Traverses through result directory, if finds API method
+        merges test run status from DataFrame passed in
+
+        :param:
+            data_frame (DataFrame): DataFrame with info about single API method
+        """
         for saved_data_frame in self.result_data_set:
             if saved_data_frame.api_method == data_frame.api_method:
                 if data_frame.passed:
@@ -72,13 +83,29 @@ class DataSet:
                     saved_data_frame.skipped += 1
                 self.logger.debug(f"increased test_counter for  {saved_data_frame.api_method}")
 
-    def _increase_rank(self, data_frame: DataFrame):
+    def _increase_frequency(self, data_frame: DataFrame):
+        """
+        Method to increase frequency for DataFrame
+        Traverses through result directory, if finds API method
+        increases frequency for DataFrame in result list
+
+        :param:
+            data_frame (DataFrame): DataFrame with info about single API method
+        """
         for saved_data_frame in self.result_data_set:
             if saved_data_frame.api_method == data_frame.api_method:
                 saved_data_frame.frequency += 1
-                self.logger.debug(f"increased rank for {saved_data_frame.api_method}")
+                self.logger.debug(f"increased frequency for {saved_data_frame.api_method}")
 
     def _append_query_params(self, data_frame: DataFrame):
+        """
+        Method to append query params DataFrame
+        Traverses through result directory, if finds API method
+        merges query params from DataFrame passed in
+
+        :param:
+            data_frame (DataFrame): DataFrame with info about single API method
+        """
         for saved_data_frame in self.result_data_set:
             if saved_data_frame.api_method == data_frame.api_method:
                 for query_param in data_frame.query_list:
@@ -87,6 +114,14 @@ class DataSet:
                         self.logger.debug(f"added query param to {saved_data_frame.api_method}")
 
     def _append_status_codes(self, data_frame: DataFrame):
+        """
+        Method to append status codes DataFrame
+        Traverses through result directory, if finds API method
+        merges status codes from DataFrame passed in
+
+        :param:
+            data_frame (DataFrame): DataFrame with info about single API method
+        """
         for saved_data_frame in self.result_data_set:
             if saved_data_frame.api_method == data_frame.api_method:
                 for status_code in data_frame.status_codes:
@@ -95,6 +130,15 @@ class DataSet:
                         self.logger.debug(f"added status code {status_code} to {saved_data_frame.api_method}")
 
     def _set_criticality(self, data_frame: DataFrame):
+        """
+        Method to set criticality for result DataFrame
+        Traverses through result directory, if finds API method
+        looks up in self.criticality_map to set criticality
+        for saved DataFrame
+
+        :param:
+            data_frame (DataFrame): DataFrame with info about single API method
+        """
         for saved_data_frame in self.result_data_set:
             if saved_data_frame.api_method == data_frame.api_method:
                 for api_methods_criticality_info in self.criticality_map:
@@ -105,10 +149,17 @@ class DataSet:
                                               f" to {saved_data_frame.api_method}")
 
     def append_data_frame(self, data_frame: DataFrame):
+        """
+        Method to form the result list with merged DataFrames
+        with API methods info
+
+        :param:
+            data_frame (DataFrame): DataFrame with info about single API method
+        """
         if data_frame.api_method not in [data_frame.api_method for data_frame in self.result_data_set]:
             self.result_data_set.append(data_frame)
 
-        self._increase_rank(data_frame=data_frame)
+        self._increase_frequency(data_frame=data_frame)
         self._increase_status(data_frame=data_frame)
         self._append_query_params(data_frame=data_frame)
         self._append_status_codes(data_frame=data_frame)

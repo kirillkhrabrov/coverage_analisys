@@ -1,5 +1,8 @@
 class DataFrame:
     def __init__(self, api_method: str, test_status=None, query_list=[], status_code=[]):
+        """
+            Class for collecting info about single API Method
+        """
         self.api_method = api_method
         self.query_list = query_list
         self.passed = 1 if test_status == "passed" else 0

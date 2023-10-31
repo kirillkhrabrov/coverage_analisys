@@ -1,9 +1,12 @@
 import os
 import matplotlib.pyplot as plt
-import pandas as pd
-from src.data_parser.data_set import DataSet
+
 
 class CoverageVisualize:
+    """
+    Class for building tables, hists, diagrams
+    and saving it to pandas_results dir
+    """
     @staticmethod
     def build_info_table(**kwargs):
         fig, table_ax = plt.subplots(figsize=(11, 11))
@@ -19,7 +22,7 @@ class CoverageVisualize:
         table_ax.set_title(label=kwargs["title"])
 
         plt.tight_layout()
-        plt.savefig(os.path.abspath('pandas_results') + f'/{kwargs["title"]}.svg')
+        plt.savefig(os.path.abspath('pandas_results') + f'/{kwargs["title"]}.pdf')
 
 
     @staticmethod
@@ -36,11 +39,11 @@ class CoverageVisualize:
         fig.suptitle(t=kwargs["title"])
 
         plt.tight_layout()
-        plt.savefig(os.path.abspath('pandas_results') + f'/{kwargs["title"]}.svg')
+        plt.savefig(os.path.abspath('pandas_results') + f'/{kwargs["title"]}.pdf')
 
 
     @staticmethod
-    def build_info_barh_on_code_coverage(width=0.8, **kwargs):
+    def build_info_barh_on_code_coverage(width: float = 0.8, **kwargs):
         df = kwargs["df"]
         fig, barh_ax = plt.subplots(figsize=(25, 25))
         barh_ax = df.plot.barh(
@@ -55,4 +58,4 @@ class CoverageVisualize:
         barh_ax.grid(linestyle='-', linewidth=0.1)
 
         plt.tight_layout()
-        plt.savefig(os.path.abspath('pandas_results') + f'/{kwargs["title"]}.svg')
+        plt.savefig(os.path.abspath('pandas_results') + f'/{kwargs["title"]}.pdf')
