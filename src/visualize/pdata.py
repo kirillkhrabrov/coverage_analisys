@@ -1,7 +1,7 @@
 import os
 import matplotlib.pyplot as plt
 import pandas as pd
-from utils.data_coverage_parser.data_parser import DataSet
+from src.data_parser.data_set import DataSet
 
 class PData:
     def __init__(self, data: list, columns: list, sort_by=None):

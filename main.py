@@ -5,7 +5,6 @@ from src.analisys.coverage_analisys import CoverageAnalisys
 from src.visualize.pdata import PData
 from src.visualize.coverage_visualize import CoverageVisualize
 
-
 PATH_TO_FACT_RESULTS = os.path.abspath('data/fact_data')
 PATH_TO_EXPECTED_RESULTS = os.path.abspath('data/expected_data')
 
@@ -20,35 +19,66 @@ expected_data_set = DataSet(path_to_source=PATH_TO_EXPECTED_RESULTS)
 data_parser.set_data_frame(data_set_to_save_data_frames=fact_data_set)
 data_parser.set_data_frame(data_set_to_save_data_frames=expected_data_set)
 
-coverage_visualizer = CoverageVisualizer(
+coverage_analyzer = CoverageAnalisys(
     fact_data_set=fact_data_set,
     expected_data_set=expected_data_set
 )
-#
-# top_50_expected = CoverageVisualizer.get_top_n_api_methods(expected_data_set, 50)
-# top_50_fact = CoverageVisualizer.get_top_n_api_methods(fact_data_set, 50)
-# top_15_fact = CoverageVisualizer.get_top_n_api_methods(fact_data_set, 15)
-#
 
-# TODO
-# TOP_N_untested_sort_freq
-# TOP_N_untested_sort_crit
-# query_untested_from_top_crit
-# query_untested_from_top_freq
-# statuses_untested_from_top_crit
-# statuses_untested_from_top_freq
-#
-# # Не протестированные используемые API методы
-# untested_used_methods = coverage_visualizer.get_untested_used_api_methods()
-#
-# # Протестированные API используемые методы
-# tested_used_methods = coverage_visualizer.get_tested_api_methods(top_50_fact)
-#
-# # Протестированные API не используемые методы
-# tested_unused_from_top_50 = coverage_visualizer.get_tested_unused_api_methods()
+# Топ 50 используемых API методов, отсортированных по частоте
+top_50_expected_sorted_by_freq = coverage_analyzer.get_top_n_api_methods(
+    data_set=expected_data_set,
+    top_n=50
+)
+
+# Топ 50 используемых API методов, отсортированных по критичности
+top_50_expected_sorted_by_crit = coverage_analyzer.get_top_n_api_methods(
+    data_set=expected_data_set,
+    top_n=50,
+    sort_by='criticality'
+)
+
+# Протестированные API методы, отсортированные по частоте
+fact_sorted_by_freq = coverage_analyzer.get_top_n_api_methods(
+    data_set=fact_data_set
+)
+
+# Протестированные API методы, отсортированные по критичности
+fact_sorted_by_crit = coverage_analyzer.get_top_n_api_methods(
+    data_set=fact_data_set,
+    sort_by='criticality'
+)
+
+# Не покрытые тестами query параметры из Топ 50 используемых методов
+untested_queries_from_top_50_expected = coverage_analyzer.get_untested_query_params(
+    expected_result_lst=top_50_expected_sorted_by_crit,
+    fact_result_lst=fact_sorted_by_crit
+)
+
+# Не покрытые тестами status codes из Топ 50 используемых методов
+untested_codes_from_top_50_expected = coverage_analyzer.get_untested_status_codes_params(
+    expected_result_lst=top_50_expected_sorted_by_crit,
+    fact_result_lst=fact_sorted_by_crit
+)
+
+# Не протестированные критичные API методы из ТОП 50
+untested_from_top_50_api_methods_crit = coverage_analyzer.get_untested_used_api_methods(
+    expected_result_lst=top_50_expected_sorted_by_crit
+)
+
+# Не протестированные частые API методы из ТОП 50
+untested_from_top_50_api_methods_freq = coverage_analyzer.get_untested_used_api_methods(
+    expected_result_lst=top_50_expected_sorted_by_freq
+)
 
 
-#
+# Статистика по 15 самым протестированным API методам
+top_15_fact_stat = coverage_analyzer.get_fact_stat(
+    expected_result_lst=coverage_analyzer.get_top_n_api_methods(fact_data_set, 15)
+)
+
+print('end')
+
+
 # # top 50 expected API Methods table
 # top_50_expected_df = PData(
 #     data=top_50_expected,

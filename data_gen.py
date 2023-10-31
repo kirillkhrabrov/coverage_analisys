@@ -22,13 +22,13 @@ def choose_test_status():
 
 def choose_code(api_method):
     if api_method["method"] == "GET" or 'login' in api_method["url"]:
-        return choice([200] * 150 + [500])
+        return choice([200] * 150 + [500] + [503])
     elif api_method["method"] == "POST" and 'login' not in api_method["url"]:
-        return choice([201] * 70 + [400])
+        return choice([201] * 70 + [400] + [404] + [401])
     elif api_method["method"] == "DELETE":
-        return choice([204] * 70 + [400] + [500])
+        return choice([204] * 70 + [400] + [404] + [401] + [500])
     elif api_method["method"] == "PATCH":
-        return choice([204] * 70 + [400])
+        return choice([204] * 70 + [400] + [404] + [401])
 
 
 def form_step_fact_result_json(num_of_iters):
@@ -159,6 +159,6 @@ def form_expected_log_json(num_of_iters):
 
             log_file.write(str(log_json_resp))
 
-form_log_fact_result_json(50)
+form_log_fact_result_json(25)
 form_expected_log_json(50)
-form_step_fact_result_json(50)
+form_step_fact_result_json(25)
