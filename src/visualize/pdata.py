@@ -1,10 +1,16 @@
-import os
-import matplotlib.pyplot as plt
 import pandas as pd
-from utils.data_coverage_parser.data_parser import DataSet
+
 
 class PData:
-    def __init__(self, data: list, columns: list, sort_by=None):
+    def __init__(self, data: list, columns: list, sort_by: str = None):
+        """
+        Class for transforming result lists of DataFrames into Pandas' dataframes
+
+        :param:
+            data (list): result list of DataFrames to be converted
+            columns (list): list of columns (series) to be saved in Pandas' dataframe
+            sort_by (str): param of DataFrame to be sorted by
+        """
         out_data = []
         for data_frame in data:
             data_part = [getattr(data_frame, attr_name) for attr_name in columns]
