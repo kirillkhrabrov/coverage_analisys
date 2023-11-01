@@ -25,11 +25,13 @@
 
 ---
 ## Пример использования
-1. Распаковать содержимое архива `./fact_expected_data_examples/expected_data.rar` в директорию `./data/expected_data`
-2. Распаковать содержимое архива `./fact_expected_data_examples/fact_data.rar` в директорию `./data/fact_data`
-3. Запустить `./main.py`
-4. В директории `./pandas_results` появятся результаты отработки скрипта
-5. Возникшие ошибки будут залоггированы в `./log.txt`
+1. Установить зависимости `pip install -r requirements.txt`
+2. Создать директорию `./pandas_results`. 
+3. Распаковать содержимое архива `./fact_expected_data_examples/expected_data.rar` в директорию `./data/expected_data`
+4. Распаковать содержимое архива `./fact_expected_data_examples/fact_data.rar` в директорию `./data/fact_data`
+5. Запустить `./main.py`
+6. В директории `./pandas_results` появятся результаты отработки скрипта
+7. Возникшие ошибки будут залоггированы в `./log.txt`
 
 ---
 ## Описание примеров expected_data
