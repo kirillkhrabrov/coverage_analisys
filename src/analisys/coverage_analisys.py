@@ -45,11 +45,8 @@ class CoverageAnalisys:
         :returns:
             result list of DataFrames with untested status codes in DataFrame.status_codes attr
         """
-        expected_list, fact_list = self.expected_data_set_result, self.fact_data_set_result
-        if expected_result_lst:
-            expected_list = expected_result_lst
-        if fact_result_lst:
-            fact_list = fact_result_lst
+        expected_list = expected_result_lst if expected_result_lst else self.expected_data_set_result
+        fact_list = fact_result_lst if fact_result_lst else self.fact_data_set_result
 
         result_data_set = []
         for expected_data_frame in expected_list:
@@ -74,11 +71,8 @@ class CoverageAnalisys:
         :returns:
             result list of DataFrames with untested query params in DataFrame.query_params attr
         """
-        expected_list, fact_list = self.expected_data_set_result, self.fact_data_set_result
-        if expected_result_lst:
-            expected_list = expected_result_lst
-        if fact_result_lst:
-            fact_list = fact_result_lst
+        expected_list = expected_result_lst if expected_result_lst else self.expected_data_set_result
+        fact_list = fact_result_lst if fact_result_lst else self.fact_data_set_result
 
         result_data_set = []
         for expected_data_frame in expected_list:
@@ -103,11 +97,8 @@ class CoverageAnalisys:
         :returns:
             result list of DataFrames with info about untested API methods
         """
-        expected_list, fact_list = self.expected_data_set_result, self.fact_data_set_result
-        if expected_result_lst:
-            expected_list = expected_result_lst
-        if fact_result_lst:
-            fact_list = fact_result_lst
+        expected_list = expected_result_lst if expected_result_lst else self.expected_data_set_result
+        fact_list = fact_result_lst if fact_result_lst else self.fact_data_set_result
 
         return list(filter(
             lambda data_frame: data_frame.api_method not in [
@@ -127,11 +118,8 @@ class CoverageAnalisys:
         :returns:
             result list of DataFrames with info about tested API methods
         """
-        expected_list, fact_list = self.expected_data_set_result, self.fact_data_set_result
-        if expected_result_lst:
-            expected_list = expected_result_lst
-        if fact_result_lst:
-            fact_list = fact_result_lst
+        expected_list = expected_result_lst if expected_result_lst else self.expected_data_set_result
+        fact_list = fact_result_lst if fact_result_lst else self.fact_data_set_result
 
         return list(filter(
             lambda data_frame: data_frame.api_method in [
